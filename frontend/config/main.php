@@ -49,6 +49,17 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'request'=>[
+            'class' => 'common\components\Request',
+            'web'=> '/frontend/web'
+        ],
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            // Disable index.php
+            'showScriptName' => false,
+            // Disable r= routes
+            'enablePrettyUrl' => true,
+        ],
     ],
     'params' => $params,
 ];
