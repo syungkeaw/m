@@ -8,9 +8,11 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
+use frontend\assets\NavSearchAsset;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+NavSearchAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -22,7 +24,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body>  
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -34,10 +36,26 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        '<form class="navbar-form navbar-left" role="search" action="'.Yii::$app->homeUrl.'movie/search" method="get">
+            <div class="Typeahead Typeahead--twitterUsers">
+                <div class="u-posRelative">
+                    <input class="Typeahead-hint" type="text" tabindex="-1" readonly>
+                    <input class="Typeahead-input typeahead" id="demo-input" type="text" name="q" placeholder="ค้นหาหนัง...">
+                    <img class="Typeahead-spinner" src="http://twitter.github.io/typeahead.js/img/spinner.gif">
+                    <button type="submit" class="btn btn-default search">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="Typeahead-menu"></div>
+            </div>
+            
+            <!--button class="u-hidden" type="submit">blah</button-->
+        </form>',
+        // ['label' => 'Home', 'url' => ['/site/index']],
+        // ['label' => 'About', 'url' => ['/site/about']],
+        // ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     
     if (Yii::$app->user->isGuest) {
@@ -53,13 +71,13 @@ AppAsset::register($this);
             ],
         ];
     }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);
     NavBar::end();
     ?>
-
 
     <div class="container">
         <?= Breadcrumbs::widget([
@@ -77,6 +95,29 @@ AppAsset::register($this);
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
+
+
+    <script id="result-template" type="text/x-handlebars-template">
+        <div class="ProfileCard u-cf">
+        <img class="ProfileCard-avatar" src="{{profile_image_url_https}}">
+
+        <div class="ProfileCard-details">
+        <div class="ProfileCard-realName"><a href="www.google.co.th">{{name}}</a></div>
+        <div class="ProfileCard-screenName">@{{screen_name}}</div>
+        <div class="ProfileCard-description">{{description}}</div>
+        </div>
+
+        <div class="ProfileCard-stats">
+        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Tweets:</span> {{statuses_count}}</div>
+        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Following:</span> {{friends_count}}</div>
+        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span> {{followers_count}}</div>
+        </div>
+        </div>
+    </script>
+
+    <script id="empty-template" type="text/x-handlebars-template">
+        <div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div>
+    </script>
 
 <?php $this->endBody() ?>
 </body>

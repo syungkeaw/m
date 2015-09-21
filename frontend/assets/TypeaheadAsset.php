@@ -13,18 +13,16 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class AppAsset extends AssetBundle
+class TypeaheadAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@bower/typeahead.js/dist';
     public $css = [
-        'css/site.css',
     ];
     public $js = [
+    	'http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js',
+        'http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js',
+        // 'typeahead.bundle.min.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\web\JqueryAsset',
-        'yii\bootstrap\BootstrapAsset',
     ];
 }
