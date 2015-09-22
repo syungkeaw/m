@@ -18,10 +18,15 @@ use yii\filters\AccessControl;
  */
 class MovieController extends Controller
 {
-    public function actionMovie()
+    public function actionIndex($id, $name)
     {
+        
+        echo $id.' : '. $name;
+
+
             // CONST APIKEY = 'd8d63599c8150e8613bfe18d54722457';
             // '3d197569c7f13f60d61a7d61d5c83427'
+        // '3b03c053f34ff11cfdc0d26b06ac95d1'
     }
 
     /**
@@ -31,15 +36,4 @@ class MovieController extends Controller
     {
         echo 'actionSearch';
     }
-
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-
 }

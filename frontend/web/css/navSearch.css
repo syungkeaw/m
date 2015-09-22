@@ -65,6 +65,7 @@
 .Typeahead-menu {
   position: absolute;
   top: 95%;
+  width: 100%;
   z-index: 100;
   display: none;
   margin-bottom: 20px;
@@ -114,12 +115,12 @@
 }
 
 .ProfileCard-details {
-  min-height: 60px;
+  min-height: 25px;
   padding-left: 60px;
 }
 
 .ProfileCard-realName,
-.ProfileCard-screenName {
+.ProfileCard-release-date {
   display: inline-block;
 }
 
@@ -127,7 +128,7 @@
   font-weight: 700;
 }
 
-.ProfileCard-screenName {
+.ProfileCard-release-date {
   color: #8899a6;
 }
 
@@ -164,9 +165,9 @@
   background: #55acee;
 }
 
-.ProfileCard:hover .ProfileCard-screenName,
+.ProfileCard:hover .ProfileCard-release-date,
 .ProfileCard:hover .ProfileCard-stat-label,
-.ProfileCard.is-active .ProfileCard-screenName,
+.ProfileCard.is-active .ProfileCard-release-date,
 .ProfileCard.is-active .ProfileCard-stat-label {
   color: #fff;
 }
@@ -195,3 +196,9 @@
   margin-left: 0px;
   margin-right: 0px;
 } 
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

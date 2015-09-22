@@ -3,28 +3,43 @@ $(document).ready(function() {
 
   $.support.cors = true;
 
-  remoteHost = 'https://typeahead-js-twitter-api-proxy.herokuapp.com';
+  remoteHost = 'http://api.themoviedb.org/3/search/movie?api_key=3b03c053f34ff11cfdc0d26b06ac95d1';
   template = Handlebars.compile($("#result-template").html());
   empty = Handlebars.compile($("#empty-template").html());
 
   engine = new Bloodhound({
-    identify: function(o) { return o.id_str; },
+    identify: function(o) { return o.id; },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'screen_name'),
-    dupDetector: function(a, b) { return a.id_str === b.id_str; },
-    prefetch: remoteHost + '/demo/prefetch',
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('id', 'title'),
+    dupDetector: function(a, b) { return a.id === b.id; },
+    prefetch: {
+      url: 'http://api.themoviedb.org/3/movie/now_playing?api_key=3b03c053f34ff11cfdc0d26b06ac95d1',
+      filter: function(parsedResponse){
+        // filter the returned data
+        return parsedResponse.results;
+      }
+    },
     remote: {
-      url: remoteHost + '/demo/search?q=%QUERY',
-      wildcard: '%QUERY'
+      url: remoteHost + '&query=%QUERY',
+      wildcard: '%QUERY',
+      filter: function (parsedResponse) {
+          // parsedResponse is the array returned from your backend
+          // results = $.grep( parsedResponse.results, function( n, i ) {
+          //   return n.media_type == 'movie';
+          // });
+          // console.log(results);
+          // do whatever processing you need here
+          return parsedResponse.results;
+      }
     }
   });
 
   // ensure default users are read on initialization
-  engine.get('1090217586', '58502284', '10273252')
+  engine.get('294254', '249070', '203801');
 
   function engineWithDefaults(q, sync, async) {
     if (q === '') {
-      sync(engine.get('1090217586', '58502284', '10273252'));
+      sync(engine.get('294254', '249070', '203801'));
       async([]);
     }
 
@@ -37,6 +52,7 @@ $(document).ready(function() {
     hint: $('.Typeahead-hint'),
     menu: $('.Typeahead-menu'),
     minLength: 0,
+    highlight: true,
     classNames: {
       open: 'is-open',
       empty: 'is-empty',
@@ -46,7 +62,7 @@ $(document).ready(function() {
     }
   }, {
     source: engineWithDefaults,
-    displayKey: 'screen_name',
+    displayKey: 'title',
     templates: {
       suggestion: template,
       empty: empty

@@ -99,18 +99,17 @@ NavSearchAsset::register($this);
 
     <script id="result-template" type="text/x-handlebars-template">
         <div class="ProfileCard u-cf">
-        <img class="ProfileCard-avatar" src="{{profile_image_url_https}}">
+        <img class="ProfileCard-avatar" src="http://image.tmdb.org/t/p/w92/{{poster_path}}">
 
         <div class="ProfileCard-details">
-        <div class="ProfileCard-realName"><a href="www.google.co.th">{{name}}</a></div>
-        <div class="ProfileCard-screenName">@{{screen_name}}</div>
-        <div class="ProfileCard-description">{{description}}</div>
+        <div class="ProfileCard-realName"><a href="<?= Yii::$app->homeUrl.'movie/{{id}}/{{title}}' ?>">{{title}}</a></div>
+        <div class="ProfileCard-release-date">@{{release_date}}</div>
+        <div class="ProfileCard-description truncate">{{overview}}</div>
         </div>
 
         <div class="ProfileCard-stats">
-        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Tweets:</span> {{statuses_count}}</div>
-        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Following:</span> {{friends_count}}</div>
-        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span> {{followers_count}}</div>
+        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Ratings:</span> {{#if rating}} {{rating}} {{else}} 0 {{/if}}</div>
+        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Reviews:</span> {{#if review}} {{review}} {{else}} 0 {{/if}}</div>
         </div>
         </div>
     </script>

@@ -58,7 +58,18 @@ return [
             // Disable index.php
             'showScriptName' => false,
             // Disable r= routes
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => true,       
+            'rules' => [
+                '/user/register' => '/user/registration/register',
+                '/user/resend' => '/user/registration/resend',
+                '/user/forgot' => '/user/recovery/request',
+                '/user/login' => '/user/security/login',
+                '/user/logout' => '/user/security/logout',
+
+                '<controller:\w+>/<id:\d+>/<name:\w+>' => '<controller>/index',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
         ],
     ],
     'params' => $params,

@@ -13,17 +13,12 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class HandlebarsAsset extends AssetBundle
+class TmdbJsAsset extends AssetBundle
 {
-    // public $sourcePath = '@vendor/components';
-    public $css = [
-    ];
+    public $sourcePath = '@frontend/packages/';
     public $js = [
-        // 'handlebars.js/handlebars.min.js',
-    	'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.2/handlebars.min.js',
+    	'tmdb-javascript/themoviedb.min.js',
     ];
     public $depends = [
-        'yii\web\JqueryAsset',
-        // 'frontend\assets\JqueryAsset',
     ];
 }
