@@ -40,6 +40,7 @@
 .Typeahead-input {
   width: 100%;
   padding: 5px 8px;
+      height: 32px;
   border: 1px solid #000;
   -webkit-border-radius: 3px;
      -moz-border-radius: 3px;
@@ -189,3 +190,8 @@
   border-radius: 2px;
   border: 0px;
 }
+
+.navbar-form.nav-search{
+  margin-left: 0px;
+  margin-right: 0px;
+} 

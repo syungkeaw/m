@@ -38,11 +38,11 @@ NavSearchAsset::register($this);
     ]);
 
     $menuItems = [
-        '<form class="navbar-form navbar-left" role="search" action="'.Yii::$app->homeUrl.'movie/search" method="get">
+        '<form class="navbar-form navbar-left nav-search" role="search" action="'.Yii::$app->homeUrl.'movie/search" method="get">
             <div class="Typeahead Typeahead--twitterUsers">
                 <div class="u-posRelative">
                     <input class="Typeahead-hint" type="text" tabindex="-1" readonly>
-                    <input class="Typeahead-input typeahead" id="demo-input" type="text" name="q" placeholder="ค้นหาหนัง...">
+                    <input class="Typeahead-input typeahead" id="demo-input" type="text" name="query" placeholder="ค้นหาหนัง...">
                     <img class="Typeahead-spinner" src="http://twitter.github.io/typeahead.js/img/spinner.gif">
                     <button type="submit" class="btn btn-default search">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>

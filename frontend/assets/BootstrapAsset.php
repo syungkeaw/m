@@ -13,17 +13,16 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class HandlebarsAsset extends AssetBundle
+class BootstrapAsset extends AssetBundle
 {
-    // public $sourcePath = '@vendor/components';
+    public $basePath = '@webroot';
+    public $baseUrl = '@web';
     public $css = [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
     ];
     public $js = [
-        // 'handlebars.js/handlebars.min.js',
-    	'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.2/handlebars.min.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
     ];
     public $depends = [
-        // 'yii\web\JqueryAsset',
-        'frontend\assets\JqueryAsset',
     ];
 }

@@ -24,7 +24,8 @@ class NavSearchAsset extends AssetBundle
         'js/navSearch.js',
     ];
     public $depends = [
-    	'yii\web\JqueryAsset',
+    	// 'yii\web\JqueryAsset',
+        'frontend\assets\JqueryAsset',
         'frontend\assets\HandlebarsAsset',
         'frontend\assets\TypeaheadAsset',
     ];

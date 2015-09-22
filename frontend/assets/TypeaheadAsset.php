@@ -19,8 +19,9 @@ class TypeaheadAsset extends AssetBundle
     public $css = [
     ];
     public $js = [
-    	'http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js',
-        'http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js',
+        'http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js',
+    	'https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js',
+        // 'http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js',
         // 'typeahead.bundle.min.js',
     ];
     public $depends = [
