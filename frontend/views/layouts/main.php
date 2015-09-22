@@ -79,7 +79,7 @@ NavSearchAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -98,20 +98,22 @@ NavSearchAsset::register($this);
 
 
     <script id="result-template" type="text/x-handlebars-template">
+        <a href="<?= Yii::$app->homeUrl.'movie/{{id}}/{{title_url}}' ?>">
         <div class="ProfileCard u-cf">
-        <img class="ProfileCard-avatar" src="http://image.tmdb.org/t/p/w92/{{poster_path}}">
+            <img class="ProfileCard-avatar" src="http://image.tmdb.org/t/p/w92/{{poster_path}}">
 
-        <div class="ProfileCard-details">
-        <div class="ProfileCard-realName"><a href="<?= Yii::$app->homeUrl.'movie/{{id}}/{{title}}' ?>">{{title}}</a></div>
-        <div class="ProfileCard-release-date">@{{release_date}}</div>
-        <div class="ProfileCard-description truncate">{{overview}}</div>
-        </div>
+            <div class="ProfileCard-details">
+                <div class="ProfileCard-realName">{{title}}</div>
+                <div class="ProfileCard-release-date">@{{release_date}}</div>
+                <div class="ProfileCard-description truncate">{{overview}}</div>
+            </div>
 
-        <div class="ProfileCard-stats">
-        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Ratings:</span> {{#if rating}} {{rating}} {{else}} 0 {{/if}}</div>
-        <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Reviews:</span> {{#if review}} {{review}} {{else}} 0 {{/if}}</div>
+            <div class="ProfileCard-stats">
+                <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Ratings:</span> {{#if rating}} {{rating}} {{else}} 0 {{/if}}</div>
+                <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Reviews:</span> {{#if review}} {{review}} {{else}} 0 {{/if}}</div>
+            </div>
         </div>
-        </div>
+        </a>
     </script>
 
     <script id="empty-template" type="text/x-handlebars-template">

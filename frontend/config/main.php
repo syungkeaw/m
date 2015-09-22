@@ -58,7 +58,21 @@ return [
             // Disable index.php
             'showScriptName' => false,
             // Disable r= routes
-            'enablePrettyUrl' => true,       
+            'enablePrettyUrl' => true, 
+            /**
+             * /user/registration/register Displays registration form
+             * /user/registration/resend Displays resend form
+             * /user/registration/confirm Confirms a user (requires id and token query params)
+             * /user/security/login Displays login form
+             * /user/security/logout Logs the user out (available only via POST method)
+             * /user/recovery/request Displays recovery request form
+             * /user/recovery/reset Displays password reset form (requires id and token query params)
+             * /user/settings/profile Displays profile settings form
+             * /user/settings/account Displays account settings form (email, username, password)
+             * /user/settings/networks Displays social network accounts settings page
+             * /user/profile/show Displays user's profile (requires id query param)
+             * /user/admin/index Displays user management interface
+             */
             'rules' => [
                 '/user/register' => '/user/registration/register',
                 '/user/resend' => '/user/registration/resend',
@@ -66,7 +80,7 @@ return [
                 '/user/login' => '/user/security/login',
                 '/user/logout' => '/user/security/logout',
 
-                '<controller:\w+>/<id:\d+>/<name:\w+>' => '<controller>/index',
+                '<controller:\w+>/<id:\d+>/<name:.+>' => '<controller>/index',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],

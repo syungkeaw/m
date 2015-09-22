@@ -20,13 +20,17 @@ class MovieController extends Controller
 {
     public function actionIndex($id, $name)
     {
-        
-        echo $id.' : '. $name;
+        // Mine'd8d63599c8150e8613bfe18d54722457';
+        // search : '3b03c053f34ff11cfdc0d26b06ac95d1'  
+        // '3d197569c7f13f60d61a7d61d5c83427'
 
 
-            // CONST APIKEY = 'd8d63599c8150e8613bfe18d54722457';
-            // '3d197569c7f13f60d61a7d61d5c83427'
-        // '3b03c053f34ff11cfdc0d26b06ac95d1'
+
+
+
+        $dataProvider['id'] = $id;
+        $dataProvider['name'] = $name;
+        return $this->render('index', ['dataProvider'=>$dataProvider]);
     }
 
     /**

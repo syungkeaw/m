@@ -1,6 +1,11 @@
 $(document).ready(function() {
   var engine, remoteHost, template, empty;
-
+  var reTitleUrl = function(results){
+    jQuery.each( results, function( i, val ) {
+      results[i].title_url = val.title.replace(/[\W]/g, '-').toLowerCase();
+    });
+    return results;
+  };
   $.support.cors = true;
 
   remoteHost = 'http://api.themoviedb.org/3/search/movie?api_key=3b03c053f34ff11cfdc0d26b06ac95d1';
@@ -16,7 +21,7 @@ $(document).ready(function() {
       url: 'http://api.themoviedb.org/3/movie/now_playing?api_key=3b03c053f34ff11cfdc0d26b06ac95d1',
       filter: function(parsedResponse){
         // filter the returned data
-        return parsedResponse.results;
+        return reTitleUrl(parsedResponse.results);
       }
     },
     remote: {
@@ -27,9 +32,9 @@ $(document).ready(function() {
           // results = $.grep( parsedResponse.results, function( n, i ) {
           //   return n.media_type == 'movie';
           // });
-          // console.log(results);
+          // console.log(parsedResponse.results);
           // do whatever processing you need here
-          return parsedResponse.results;
+          return reTitleUrl(parsedResponse.results);
       }
     }
   });
