@@ -98,6 +98,7 @@
 .ProfileCard {
   position: relative;
   padding: 8px;
+  min-height: 68px;
 }
 
 .ProfileCard-avatar {
@@ -201,4 +202,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.no-underline:hover{
+  text-decoration: none;
 }

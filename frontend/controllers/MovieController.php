@@ -36,8 +36,10 @@ class MovieController extends Controller
     /**
      * @inheritdoc
      */
-    public function actionSearch()
+    public function actionSearch($query)
     {
-        echo 'actionSearch';
+        // $this->layout = "layoutName";
+        // $this->layout('folder/namefile')
+        return $this->render('search', ['query'=>$query]);
     }
 }

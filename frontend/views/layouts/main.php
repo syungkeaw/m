@@ -79,7 +79,7 @@ NavSearchAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container-fluid">
+    <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -91,34 +91,32 @@ NavSearchAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
 
+<script id="result-template" type="text/x-handlebars-template">
+    <a class="no-underline" href="<?= Yii::$app->homeUrl.'movie/{{id}}/{{title_url}}' ?>">
+    <div class="ProfileCard u-cf">
+        <img class="ProfileCard-avatar" src="http://image.tmdb.org/t/p/w92/{{poster_path}}">
 
-    <script id="result-template" type="text/x-handlebars-template">
-        <a href="<?= Yii::$app->homeUrl.'movie/{{id}}/{{title_url}}' ?>">
-        <div class="ProfileCard u-cf">
-            <img class="ProfileCard-avatar" src="http://image.tmdb.org/t/p/w92/{{poster_path}}">
-
-            <div class="ProfileCard-details">
-                <div class="ProfileCard-realName">{{title}}</div>
-                <div class="ProfileCard-release-date">@{{release_date}}</div>
-                <div class="ProfileCard-description truncate">{{overview}}</div>
-            </div>
-
-            <div class="ProfileCard-stats">
-                <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Ratings:</span> {{#if rating}} {{rating}} {{else}} 0 {{/if}}</div>
-                <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Reviews:</span> {{#if review}} {{review}} {{else}} 0 {{/if}}</div>
-            </div>
+        <div class="ProfileCard-details">
+            <div class="ProfileCard-realName">{{title}}</div>
+            <div class="ProfileCard-release-date">@{{release_date}}</div>
+            <div class="ProfileCard-description truncate">{{overview}}</div>
         </div>
-        </a>
-    </script>
 
-    <script id="empty-template" type="text/x-handlebars-template">
-        <div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div>
-    </script>
+        <div class="ProfileCard-stats">
+            <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Ratings:</span> {{#if rating}} {{rating}} {{else}} 0 {{/if}}</div>
+            <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Reviews:</span> {{#if review}} {{review}} {{else}} 0 {{/if}}</div>
+        </div>
+    </div>
+    </a>
+</script>
+
+<script id="empty-template" type="text/x-handlebars-template">
+    <div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div>
+</script>
 
 <?php $this->endBody() ?>
 </body>
