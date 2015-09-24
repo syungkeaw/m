@@ -9,11 +9,17 @@ angular.module('searchResult', [])
 	}
 })
 
-.controller('searchResultCtrl', function ($scope, $http, $qStr) {
-	$http.get('http://api.themoviedb.org/3/search/movie?api_key=3d197569c7f13f60d61a7d61d5c83427&language=th&query='+$qStr('query'))
+.controller('searchResultCtrl', function ($scope, $http, $qStr, $timeout) { //&language=th
+	$http.get('http://api.themoviedb.org/3/search/movie?api_key=3d197569c7f13f60d61a7d61d5c83427&query='+$qStr('query'))
 	.success(function(data) {
 		$scope.movies = data.results;
 	});
+
+	$timeout(function () {
+        $scope.$root = {
+            initializing: {
+                status: 'Complete!'
+            }
+        }
+    }, 2000);
 });
-
-
