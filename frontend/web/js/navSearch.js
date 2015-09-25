@@ -1,6 +1,9 @@
 var reTitleUrl = function(results){
   jQuery.each( results, function( i, val ) {
-    results[i].title_url = val.title.replace(/(?![ก-๙])[\W]/g, '-').toLowerCase();
+    results[i].title_url = val.original_title
+      .replace(/(?![ก-๙])[\W]/g, '-')
+      .replace(/-{2,}/g, '-')
+      .toLowerCase();
   });
   return results;
 };
