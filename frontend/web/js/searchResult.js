@@ -10,10 +10,34 @@ angular.module('searchResult', [])
 })
 
 .controller('searchResultCtrl', function ($scope, $http, $qStr, $timeout) { //&language=th
-	$http.get('http://api.themoviedb.org/3/search/movie?api_key=3d197569c7f13f60d61a7d61d5c83427&query='+$qStr('query'))
-	.success(function(data) {
-		$scope.movies = data.results;
-	});
+	var loadPage = 1, totalPage = 0, loadButton;
+	$scope.toggle = false;
+	$scope.movies = [];
+
+	$scope.call = function(){
+		$http.get('http://api.themoviedb.org/3/search/movie?page='+loadPage+'&api_key=3d197569c7f13f60d61a7d61d5c83427&language=th&query='+$qStr('query'))
+		.success(function(data) {
+
+			$scope.movies = reTitleUrl($scope.movies.concat(data.results));
+			$scope.currentResult = $scope.movies.length;
+			$scope.totalResult = data.total_results;
+
+			totalPage = data.total_pages;
+			loadPage++;
+
+			$(loadButton).button('reset');
+			if(loadPage > totalPage) 
+				$scope.toggle = true;
+		});
+	}
+
+	$scope.call(loadPage);
+
+	$scope.loadMore = function($event){
+		loadButton = $event.target;
+		$(loadButton).button('loading');
+		$scope.call(loadPage);
+	}
 
 	$timeout(function () {
         $scope.$root = {

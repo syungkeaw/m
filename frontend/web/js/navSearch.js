@@ -1,11 +1,13 @@
+var reTitleUrl = function(results){
+  jQuery.each( results, function( i, val ) {
+    results[i].title_url = val.title.replace(/(?![ก-๙])[\W]/g, '-').toLowerCase();
+  });
+  return results;
+};
+
 $(document).ready(function() {
   var engine, remoteHost, template, empty;
-  var reTitleUrl = function(results){
-    jQuery.each( results, function( i, val ) {
-      results[i].title_url = val.title.replace(/(?![ก-๙])[\W]/g, '-').toLowerCase();
-    });
-    return results;
-  };
+
   $.support.cors = true;
 
   remoteHost = 'http://api.themoviedb.org/3/search/movie?api_key=3b03c053f34ff11cfdc0d26b06ac95d1&language=th';
