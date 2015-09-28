@@ -18,7 +18,7 @@ $this->registercssFile('@web/css/searchResult.css');
                         <img class="img-responsive" ng-src="http://image.tmdb.org/t/p/w342{{movie.poster_path}}" onerror="this.src='http://biz.maxell.com/images_products/4/5067/en/No_images.jpg'" alt="poster-{{movie.originan_title}}">
                     </div>
                      <div class="caption truncate">                                                
-                        <p>{{movie.title}}</p>
+                        <p>{{movie.original_title}}</p>
                     </div>
                 </div>
             </a>

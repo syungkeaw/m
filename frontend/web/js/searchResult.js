@@ -15,7 +15,7 @@ angular.module('searchResult', [])
 	$scope.movies = [];
 
 	$scope.call = function(){
-		$http.get('http://api.themoviedb.org/3/search/movie?page='+loadPage+'&api_key=3d197569c7f13f60d61a7d61d5c83427&language=th&query='+$qStr('query'))
+		$http.get('http://api.themoviedb.org/3/search/movie?page='+loadPage+'&api_key=3d197569c7f13f60d61a7d61d5c83427&query='+$qStr('query'))
 		.success(function(data) {
 
 			$scope.movies = reTitleUrl($scope.movies.concat(data.results));
