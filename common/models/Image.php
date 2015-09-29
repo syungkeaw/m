@@ -44,4 +44,11 @@ class Image extends \yii\db\ActiveRecord
             'path' => 'Path',
         ];
     }
+
+    public function getMovie()
+    {
+        return $this->hasOne(Movie::className(), [
+            'id' => 'movie_id'
+        ]);
+    }
 }

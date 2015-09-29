@@ -9,6 +9,7 @@ class m150928_101335_create_people_table extends Migration
     {
         $this->createTable('{{%people}}', [
             'id' => $this->primaryKey(),
+            'tmdb_id' => $this->integer()->notNull()->unique(),
             'full_name' => $this->string(),
             'image_path' => $this->string(),
             'type' => $this->integer(),

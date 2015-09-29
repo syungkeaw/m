@@ -19,7 +19,7 @@ class m150928_092453_create_movie_table extends Migration
             'poster' => $this->string(),
             'release' => $this->integer(),
             'rate' => $this->string(),
-            'runtime' => $this->string(),
+            'runtime' => $this->integer(),
             'poster' => $this->string(),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),

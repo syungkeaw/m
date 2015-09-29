@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $movie_id
- * @property string $genre
+ * @property string $label
  */
 class Genre extends \yii\db\ActiveRecord
 {
@@ -27,9 +27,9 @@ class Genre extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['movie_id', 'genre'], 'required'],
+            [['movie_id', 'label'], 'required'],
             [['movie_id'], 'integer'],
-            [['genre'], 'string', 'max' => 255]
+            [['label'], 'string', 'max' => 255]
         ];
     }
 
@@ -41,7 +41,14 @@ class Genre extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'movie_id' => 'Movie ID',
-            'genre' => 'Genre',
+            'label' => 'Label',
         ];
+    }
+
+    public function getMovie()
+    {
+        return $this->hasOne(Movie::className(), [
+            'id' => 'movie_id'
+        ]);
     }
 }

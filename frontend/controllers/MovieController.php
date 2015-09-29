@@ -13,9 +13,9 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use Tmdb\ApiToken;
 use Tmdb\Client;
-
 
 /**
  * Movie controller
@@ -31,22 +31,75 @@ class MovieController extends Controller
 
     public function actionIndex($id, $name)
     {
-        // $token  = new ApiToken(self::API_KEY);
-        // $client = new Client($token, [
-        //     'secure' => false,
-        // ]);
+        $token  = new ApiToken(self::API_KEY);
+        $client = new Client($token, [
+            'secure' => false,
+        ]);
 
-        // $movie = $client->getMoviesApi()->getMovie(37973);
+        $configRepository = new \Tmdb\Repository\ConfigurationRepository($client);
+        $config = $configRepository->load();
 
-        // echo '<pre>',print_r($movie);
-        $movie = new Movie();
-        $movie->title = 'xxxsdf';
-        $movie->tmdb_id = '123';
-        $movie->imdb_id = 'tt11112';
+        $imageHelper = new \Tmdb\Helper\ImageHelper($config);
+        $repository  = new \Tmdb\Repository\MovieRepository($client);
+
+        $newMovie = $repository->load($id);
+
+        $movie = Movie::findOne(['tmdb_id' => $id]);
+
+        if(!isset($movie) || empty($movie)){
+            $movie = new Movie();
+            $movie->tmdb_id = $newMovie->getId();
+            $movie->imdb_id = $newMovie->getImdbId(); 
+        }
+
+        $movie->title = $newMovie->getTitle();
+        $movie->overview = $newMovie->getOverview();
+        $movie->homepage = $newMovie->getHomepage();
+        $movie->poster = $newMovie->getPosterPath();
+        $movie->runtime = $newMovie->getRuntime();
+
+        $arrayTemp = [];
+        foreach($newMovie->getGenres() as $genre){
+            $arrayTemp[$genre->getId()] = $genre->getName();
+        }
+        $movie->genre = $arrayTemp;
+
+        $arrayTemp = [];
+        foreach($newMovie->getImages() as $image) {
+            $arrayTemp[] = $image->getFilePath();
+        }
+        $movie->image = $arrayTemp;
+
+        $arrayTemp = [];
+        foreach ($newMovie->getVideos() as $trailer) {
+            $arrayTemp[] = $trailer->getUrl();
+        }
+        $movie->trailer = $arrayTemp;
+
+        $arrayTemp = [];
+        foreach($newMovie->getCredits()->getCast() as $key => $person){
+            $arrayTemp[$key]['tmdb_id'] = $person->getId();
+            $arrayTemp[$key]['full_name'] = $person->getName();
+            $arrayTemp[$key]['image_path'] = $person->getProfilePath();
+            $arrayTemp[$key]['charecter'] = $person->getCharacter();
+            $arrayTemp[$key]['job'] = '';
+            $arrayTemp[$key]['type'] = 1;
+        }
+        foreach($newMovie->getCredits()->getCrew() as $key => $person){
+            $arrayTemp[$key]['tmdb_id'] = $person->getId();
+            $arrayTemp[$key]['full_name'] = $person->getName();
+            $arrayTemp[$key]['image_path'] = $person->getProfilePath();
+            $arrayTemp[$key]['charecter'] = '';
+            $arrayTemp[$key]['job'] = $person->getJob();
+            $arrayTemp[$key]['type'] = 2;
+        }
+        $movie->people = $arrayTemp;
+
         $movie->save();
 
-        echo '<pre>',print_r($movie->getErrors());
-        die;
+        // echo '<pre>',print_r($movie);
+        // echo '<pre>',print_r($movie->getErrors());
+        // die;
 
         $dataProvider['id'] = $id;
         $dataProvider['name'] = $name;

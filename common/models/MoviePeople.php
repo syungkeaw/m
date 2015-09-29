@@ -48,4 +48,18 @@ class MoviePeople extends \yii\db\ActiveRecord
             'charecter' => 'Charecter',
         ];
     }
+
+    public function getMovie()
+    {
+        return $this->hasOne(Movie::className(), [
+            'id' => 'movie_id'
+        ]);
+    }  
+
+    public function getPeople()
+    {
+        return $this->hasOne(People::className(), [
+            'id' => 'people_id'
+        ]);
+    }  
 }
