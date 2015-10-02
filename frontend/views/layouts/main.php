@@ -77,6 +77,8 @@ NavSearchAsset::register($this);
         'items' => $menuItems,
     ]);
     NavBar::end();
+
+        $xAction = $this->context->id.'/'.$this->context->action->id;
     ?>
 
     <div class="container">
@@ -84,8 +86,9 @@ NavSearchAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
-        <?= $content ?>
+        <?= $xAction != 'movie/index' ? $content : '' ?>
     </div>
+        <?= $xAction == 'movie/index' ? $content : '' ?>
 </div>
 
 <footer class="footer">
