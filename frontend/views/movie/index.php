@@ -6,7 +6,7 @@ use yii\web\View;
 $this->registerJs("
 $('#nav').affix({
     offset: {
-        top: $('#nav').offset().top - 50,
+        top: $('#nav').offset().top - 65,
         bottom: 100
     }
 });
@@ -27,14 +27,7 @@ $('body').scrollspy({
 
 $this->registerCss("
 .affix {
-  top: 50px;
-  width: 213px;
-}
-
-@media (min-width: 1200px) {
-  .affix {
-    width: 263px;
-  }      
+  top: 290px;
 }
 
 .nav .active {
@@ -73,12 +66,12 @@ $this->registerCss("
 }
 
 .backdrop{
-  background-image : url('http://image.tmdb.org/t/p/original".$movie->image[0]->path."');
+  background-image : url('http://image.tmdb.org/t/p/original".(isset($movie->image[0]->path) ? $movie->image[0]->path : '')."');
   background-color: black;
   background-size: cover;
   background-position: 50% 10%;
   transition: all .5s;
-  height: 600px;
+  height: 500px;
   color: #000;
   position: relative;
   
@@ -96,42 +89,46 @@ $this->registerCss("
   padding: 0;
 }
 
-.summary{
+.movie-header{
   width: 100%;
   position: absolute;
   bottom: 0;
   z-index:99;
 }
+
+#nav{
+  margin-top: -220px;
+}
+
 ");
 
 
 ?>
 <div class="container-fluid">
   <div class="row">
-      <div class="backdrop">
-        <div class="image-fade"></div>
-        <div class="summary">
-          
-          <div class="container"> 
-            <div class="row">
-              <div class="col-md-9 col-md-offset-3">
-                <div class="summary-detail">
-                  <h1><?= $movie->title ?> <small><?= !empty($movie->release) ? date('Y', $movie->release) : '' ?></small></h1>
-                </div>
-              </div>              
-            </div>
+    <section class="backdrop">
+      <div class="image-fade"></div>
+      <div class="movie-header">
+        <div class="container"> 
+          <div class="row">
+            <div class="col-lg-10 col-md-9 col-lg-offset-2 col-md-offset-3">
+              <div>
+                <h1><?= $movie->title ?> <small><?= !empty($movie->release) ? date('Y', $movie->release) : '' ?></small></h1>
+              </div>
+            </div>              
           </div>
         </div>
-      </div>  
+      </div>
+    </section>  
   </div>
 </div>
 
 <div class="container">
   <div class="row">
-  	<div class="col-md-3 scrollspy"> 
-  		<div id="nav" class="hidden-xs hidden-sm affix-top" data-spy="affix">
+  	<div class="col-lg-2 col-md-3 hidden-sm hidden-xs scrollspy"> 
+  		<div id="nav" class="affix-top" data-spy="affix">
   			<div class="poster">
-  				<img style="width: 180px;margin-top: 20px;" class="real" src="https://walter.trakt.us/images/movies/000/102/924/posters/thumb/af119b8d07.jpg" alt="Af119b8d07">
+  				<img src="http://image.tmdb.org/t/p/w185<?= $movie->poster ?>" alt="Af119b8d07">
   			</div>
   			<ul class="nav">
   				<li class=""><a href="#web-design">Web Design</a></li>
@@ -161,7 +158,7 @@ $this->registerCss("
 
 
 
-<div class="col-md-9">
+<div class="col-lg-10 col-md-9">
         <section id="web-design">
           <h2><span class="fa fa-edit"></span> Web Design</h2>
           <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
