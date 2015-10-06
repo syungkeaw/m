@@ -92,6 +92,6 @@ class TmdbHelper
             return $movie;
         }
 
-        throw new HttpException(500, 'Something wrong!!');
+        throw new HttpException(500, 'Something went wrong!!');
     }    
 }

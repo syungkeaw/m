@@ -32,6 +32,8 @@ class MovieController extends Controller
             $movie = TmdbHelper::createNewMovie($id);
         }
 
+        // echo '<pre>', print_r($movie->image[0]->path);
+        // die;
         return $this->render('index', [
             'movie'=>$movie,
         ]);

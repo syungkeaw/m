@@ -71,42 +71,93 @@ $this->registerCss("
 .nav .nav .active:focus span {
   display: none;
 }
+
+.backdrop{
+  background-image : url('http://image.tmdb.org/t/p/original".$movie->image[0]->path."');
+  background-color: black;
+  background-size: cover;
+  background-position: 50% 10%;
+  transition: all .5s;
+  height: 600px;
+  color: #000;
+  position: relative;
+  
+}
+
+.image-fade{
+  position: absolute;
+  width: 100%;
+  height: 30%;
+  bottom:0;
+  background: linear-gradient(to top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+}
+
+.wrap > .container{
+  padding: 0;
+}
+
+.summary{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index:99;
+}
 ");
 
 
 ?>
+<div class="container-fluid">
+  <div class="row">
+      <div class="backdrop">
+        <div class="image-fade"></div>
+        <div class="summary">
+          
+          <div class="container"> 
+            <div class="row">
+              <div class="col-md-9 col-md-offset-3">
+                <div class="summary-detail">
+                  <h1><?= $movie->title ?> <small><?= !empty($movie->release) ? date('Y', $movie->release) : '' ?></small></h1>
+                </div>
+              </div>              
+            </div>
+          </div>
+        </div>
+      </div>  
+  </div>
+</div>
 
-<div class="row">
-	<div class="col-md-3 scrollspy"> 
-		<div id="nav" class="hidden-xs hidden-sm affix-top" data-spy="affix">
-			<div class="poster">
-				<img style="width: 180px;margin-top: 20px;" class="real" src="https://walter.trakt.us/images/movies/000/102/924/posters/thumb/af119b8d07.jpg" alt="Af119b8d07">
-			</div>
-			<ul class="nav">
-				<li class=""><a href="#web-design">Web Design</a></li>
-				<li class=""><a href="#web-development">Web Development</a>
-					<ul class="nav">
-						<li class=""><a href="#ruby"><span class="fa fa-angle-double-right"></span>Ruby</a></li>
-						<li class=""><a href="#python"><span class="fa fa-angle-double-right"></span>Python</a></li>
-						<li class=""><a href="#php"><span class="fa fa-angle-double-right"></span>PHP</a></li>
-					</ul>
-				</li>
-				<li class=""><a href="#marketing">Marketing</a></li>
-				<li class=""><a href="#graphic-design">Graphic Design</a></li>
-				<li class=""><a href="#logistics">Logistics</a></li>
-				<li class=""><a href="#social">Social</a></li>
-				<li class=""><a href="#management">Management</a></li>
-				<li class=""><a href="#chemistry">Chemistry</a></li>
-				<li class=""><a href="#mobile-development">Mobile Development</a>
-					<ul class="nav">
-						<li class=""><a href="#android"><span class="fa fa-angle-double-right"></span>Android</a></li>
-						<li class=""><a href="#iOS"><span class="fa fa-angle-double-right"></span>iOS</a></li>
-					</ul>
-				</li>
-				<li class=""><a href="#mathematics">Mathematics</a></li>
-			</ul>
-		</div>
-	</div>
+<div class="container">
+  <div class="row">
+  	<div class="col-md-3 scrollspy"> 
+  		<div id="nav" class="hidden-xs hidden-sm affix-top" data-spy="affix">
+  			<div class="poster">
+  				<img style="width: 180px;margin-top: 20px;" class="real" src="https://walter.trakt.us/images/movies/000/102/924/posters/thumb/af119b8d07.jpg" alt="Af119b8d07">
+  			</div>
+  			<ul class="nav">
+  				<li class=""><a href="#web-design">Web Design</a></li>
+  				<li class=""><a href="#web-development">Web Development</a>
+  					<ul class="nav">
+  						<li class=""><a href="#ruby"><span class="fa fa-angle-double-right"></span>Ruby</a></li>
+  						<li class=""><a href="#python"><span class="fa fa-angle-double-right"></span>Python</a></li>
+  						<li class=""><a href="#php"><span class="fa fa-angle-double-right"></span>PHP</a></li>
+  					</ul>
+  				</li>
+  				<li class=""><a href="#marketing">Marketing</a></li>
+  				<li class=""><a href="#graphic-design">Graphic Design</a></li>
+  				<li class=""><a href="#logistics">Logistics</a></li>
+  				<li class=""><a href="#social">Social</a></li>
+  				<li class=""><a href="#management">Management</a></li>
+  				<li class=""><a href="#chemistry">Chemistry</a></li>
+  				<li class=""><a href="#mobile-development">Mobile Development</a>
+  					<ul class="nav">
+  						<li class=""><a href="#android"><span class="fa fa-angle-double-right"></span>Android</a></li>
+  						<li class=""><a href="#iOS"><span class="fa fa-angle-double-right"></span>iOS</a></li>
+  					</ul>
+  				</li>
+  				<li class=""><a href="#mathematics">Mathematics</a></li>
+  			</ul>
+  		</div>
+  	</div>
 
 
 
@@ -408,3 +459,4 @@ $this->registerCss("
       </div>
 	</div>
 
+</div>
