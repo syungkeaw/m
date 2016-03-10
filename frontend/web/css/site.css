@@ -1,6 +1,10 @@
 html,
-body {
+body{
     height: 100%;
+}
+
+.container{
+    width:100%;
 }
 
 .wrap {
@@ -93,3 +97,5 @@ a.desc:after {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+#nav.affix, #nav.affix-top{margin-left: 26px;}

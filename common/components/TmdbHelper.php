@@ -74,7 +74,7 @@ class TmdbHelper
             $arrayTemp[$key]['tmdb_id'] = $person->getId();
             $arrayTemp[$key]['full_name'] = $person->getName();
             $arrayTemp[$key]['image_path'] = $person->getProfilePath();
-            $arrayTemp[$key]['charecter'] = $person->getCharacter();
+            $arrayTemp[$key]['character'] = $person->getCharacter();
             $arrayTemp[$key]['job'] = '';
             $arrayTemp[$key]['type'] = 1;
         }
@@ -82,7 +82,7 @@ class TmdbHelper
             $arrayTemp[$key]['tmdb_id'] = $person->getId();
             $arrayTemp[$key]['full_name'] = $person->getName();
             $arrayTemp[$key]['image_path'] = $person->getProfilePath();
-            $arrayTemp[$key]['charecter'] = '';
+            $arrayTemp[$key]['character'] = '';
             $arrayTemp[$key]['job'] = $person->getJob();
             $arrayTemp[$key]['type'] = 2;
         }

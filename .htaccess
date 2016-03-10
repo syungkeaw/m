@@ -2,21 +2,21 @@ Options +FollowSymlinks
 RewriteEngine On
 
 # deal with admin first
-RewriteCond %{REQUEST_URI} ^/m/(admin) 
+RewriteCond %{REQUEST_URI} ^/storyx/(admin) 
 RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
 RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
 
-RewriteCond %{REQUEST_URI} !^/m/backend/web/(assets|css)/  
-RewriteCond %{REQUEST_URI} ^/m/(admin)  
+RewriteCond %{REQUEST_URI} !^/storyx/backend/web/(assets|css)/  
+RewriteCond %{REQUEST_URI} ^/storyx/(admin)  
 RewriteRule ^.*$ backend/web/index.php [L]
 
 
-RewriteCond %{REQUEST_URI} ^/m/(assets|css|js)  
+RewriteCond %{REQUEST_URI} ^/storyx/(assets|css|js)  
 RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
 RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
 RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
 
-RewriteCond %{REQUEST_URI} !^/m/(frontend|backend)/web/(assets|css|js)/  
+RewriteCond %{REQUEST_URI} !^/storyx/(frontend|backend)/web/(assets|css|js)/  
 RewriteCond %{REQUEST_URI} !index.php
 RewriteCond %{REQUEST_FILENAME} !-f [OR]
 RewriteCond %{REQUEST_FILENAME} !-d

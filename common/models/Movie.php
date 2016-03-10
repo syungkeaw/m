@@ -180,7 +180,7 @@ class Movie extends MActiveRecord
                 if(isset($people) && !empty($people)){
                     $people->link('movie', $this, [
                         'job' => $newPeople['job'],
-                        'charecter' => $newPeople['charecter'],
+                        'character' => $newPeople['character'],
                     ]);
                 }
             }
