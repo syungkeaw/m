@@ -243,4 +243,17 @@ class Movie extends MActiveRecord
         $this->saveMoviePeople();
     }    
 
+    public function getImdb()
+    {
+        return $this->hasOne(Imdb::className(), [
+            'id' => 'imdb_id'
+        ]);
+    }  
+
+    public function getRt()
+    {
+        return $this->hasOne(Rt::className(), [
+            'id' => 'imdb_id'
+        ]);
+    }  
 }

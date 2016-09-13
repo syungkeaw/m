@@ -1,6 +1,7 @@
 
 <?php
 use yii\web\View;
+use yii\helpers\Html;
 
 
 $this->registerJs("
@@ -22,6 +23,7 @@ $('body').scrollspy({
 	target: '.scrollspy',
 	offset: 200
 });
+
 
 ", View::POS_READY);
 
@@ -131,74 +133,104 @@ $this->registerCss("
   				<img src="http://image.tmdb.org/t/p/w185<?= $movie->poster ?>" alt="Af119b8d07">
   			</div>
   			<ul class="nav">
-  				<li class=""><a href="#web-design">Web Design</a></li>
-  				<li class=""><a href="#web-development">Web Development</a>
+  				<!-- <li class=""><a href="#">Top</a></li> -->
+<!--   				<li class=""><a href="#web-development">Web Development</a>
   					<ul class="nav">
   						<li class=""><a href="#ruby"><span class="fa fa-angle-double-right"></span>Ruby</a></li>
   						<li class=""><a href="#python"><span class="fa fa-angle-double-right"></span>Python</a></li>
   						<li class=""><a href="#php"><span class="fa fa-angle-double-right"></span>PHP</a></li>
   					</ul>
-  				</li>
-  				<li class=""><a href="#marketing">Marketing</a></li>
-  				<li class=""><a href="#graphic-design">Graphic Design</a></li>
-  				<li class=""><a href="#logistics">Logistics</a></li>
-  				<li class=""><a href="#social">Social</a></li>
-  				<li class=""><a href="#management">Management</a></li>
-  				<li class=""><a href="#chemistry">Chemistry</a></li>
-  				<li class=""><a href="#mobile-development">Mobile Development</a>
-  					<ul class="nav">
-  						<li class=""><a href="#android"><span class="fa fa-angle-double-right"></span>Android</a></li>
-  						<li class=""><a href="#iOS"><span class="fa fa-angle-double-right"></span>iOS</a></li>
-  					</ul>
-  				</li>
-  				<li class=""><a href="#mathematics">Mathematics</a></li>
+  				</li> -->
+  				<li class=""><a href="#review">Review</a></li>
+  				<li class=""><a href="#trailer">Trailer</a></li>
   			</ul>
   		</div>
   	</div>
 
+<div class="col-lg-7 col-md-7" style="margin-left:20px">
+  <hr>
+  <?php if(!empty($movie->imdb->id)){ ?>
+  <section id="review">
+    <!-- <h2><span class="fa fa-edit"></span> IMDB</h2> -->
+    <div class="row" style="padding: 10px; background: #333;">
+      <div class="col-xs-3 col-md-3">
+        <?= Html::img(Yii::getAlias('@web') .'/images/imdb.png', ['style' => 'width:200px;', 'class' => 'img-responsive']) ?>
+      </div>
+      <div class="col-xs-9 col-md-9">
+          <div style="float:left;padding-top: 10px">
+          <?= Html::img(Yii::getAlias('@web') .'/images/star.png', ['style' => 'width:50px']) ?>
+          </div>
+          <div style="float:left;padding:10px 0 0 10px">
+            <span style="color: #fff; font-size:36px;"><?= number_format($movie->imdb->rating, 1)?></span>
+            <span style="color: #777; font-size:12px;">/<?= $movie->imdb->max_rating ?></span>
+            <span style="color: #777; font-size:12px;"> from <?= number_format($movie->imdb->num_review) ?> user(s)</span>
+          </div>
+      </div>
+    </div>
+  </section><!--end of #web-devlopment-->
+  <?php } ?>
+  <br>
+  <section id="tomato-rotten">
+    <div class="row" style="background: #FEF7CD;">
+      <div class="col-xs-3 col-md-3">
+        <?= Html::img(Yii::getAlias('@web') .'/images/rottentomatoes.png', ['style' => 'width:200px', 'class' => 'img-responsive']) ?>
+      </div>
+      <div class="col-xs-9 col-md-9" style="padding:5px;">
+        <div class="col-xs-7">
+          <p>TOMATOMETER</p>
+          <span style="
+            background: transparent url(<?= Yii::getAlias('@web') .'/images/rt.png' ?>) no-repeat 0px 0px;
+            display: inline-block;
+            vertical-align: text-bottom;
+            height: 48px;
+            width: 48px;
+          "></span>
+           <span style="font-size:34px;font-weight:bold;"><?= $movie->rt->critic_score ?>%</span>
+          <p style="font-size:11px; margin: 0 0 2px;"><span style="color:#999">Average Rating:</span> <?= $movie->rt->average_rating ?>/10</p>
+          <p style="font-size:11px; margin: 0 0 2px;"><span style="color:#999">Reviews Counted:</span> <?= number_format($movie->rt->reviews_counted) ?></p>
+          <p style="font-size:11px; margin: 0 0 2px;"><span style="color:#999">Fresh:</span> <?= $movie->rt->fresh ?></p>
+          <p style="font-size:11px; margin: 0 0 2px;"><span style="color:#999">Rotten:</span> <?= $movie->rt->rotten ?></p>
 
+        </div>
+        <div class="col-xs-5" style="border-left:1px solid #555;">
+          <p>AUDIENCE SCORE</p>
+          <span style="
+            background: transparent url(<?= Yii::getAlias('@web') .'/images/rt.png' ?>) no-repeat 0px -150px;
+            display: inline-block;
+            vertical-align: text-bottom;
+            height: 48px;
+            width: 48px;
+          "></span>
+           <span style="font-size:34px;font-weight:bold;"><?= $movie->rt->user_score ?>%</span>
+          <p style="font-size:11px; margin: 0 0 2px;"><span style="color:#999">Average Rating:</span> <?= $movie->rt->user_average_rating ?>/5</p>
+          <p style="font-size:11px; margin: 0 0 2px;"><span style="color:#999">User Ratings:</span> <?= number_format($movie->rt->user_reviews_counted) ?></p>
+        </div>
+      </div>
+    </div>
+  </section><!--end of #marketing-->
+  <hr>
+  <section id="trailer">
+    <div class="row">
+      <div class="col-md-12">
+        <?php 
 
-<div class="col-lg-10 col-md-9">
-        <section id="web-design">
-          <h2><span class="fa fa-edit"></span> Web Design</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus,
-            tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc,
-            blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.
-          </p>
-          <button type="button" class="btn btn-primary">Learn More</button>
-        </section><!--end of #web-design-->
+          foreach($movie->trailer as $trailer){
+            preg_match(
+                '/[\\?\\&]v=([^\\?\\&]+)/',
+                $trailer->path,
+                $matches
+            );
 
-        <section id="web-development">
-          <h2><span class="fa fa-edit"></span> Web Development</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc. Etiam ultricies nisi vel augue.
-            Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus,
-            tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.Nam
-            quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
+            echo '<div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="https://youtube.com/embed/'. $matches[1] .'"></iframe>
+            </div><br>';
+          }
 
-          <section id="ruby">
+        ?>
+      </div>
+    </div>
+          
+          <!-- <section id="ruby">
             <h3>Ruby</h3>
             <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
               Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc, blandit vel,
@@ -209,7 +241,7 @@ $this->registerCss("
               luctus pulvinar, hendrerit id, lorem.
             </p>
             <button type="button" class="btn btn-primary">Learn More</button>
-          </section><!--end of #ruby-->
+          </section>
 
           <section id="python">
             <h3>Python</h3>
@@ -222,7 +254,7 @@ $this->registerCss("
               luctus pulvinar, hendrerit id, lorem.
             </p>
             <button type="button" class="btn btn-primary">Learn More</button>
-          </section><!--end of #python-->
+          </section>
 
           <section id="php">
             <h3>PHP</h3>
@@ -239,221 +271,35 @@ $this->registerCss("
               luctus pulvinar, hendrerit id, lorem.
             </p>
             <button type="button" class="btn btn-primary">Learn More</button>
-          </section><!--end of #php-->
-        </section><!--end of #web-devlopment-->
+          </section> -->
+    </section><!--end of #graphic-design-->
 
-        <section id="marketing">
-          <h2><span class="fa fa-edit"></span> Marketing</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.
-          </p>
-          <p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
-            viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.
-            Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet
-            adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <button type="button" class="btn btn-primary">Learn More</button>
-        </section><!--end of #marketing-->
-
-        <section id="graphic-design">
-          <h2><span class="fa fa-edit"></span> Graphic Design</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc. Etiam ultricies nisi vel augue.
-            Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus,
-            tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <button type="button" class="btn btn-primary">Learn More</button>
-        </section><!--end of #graphic-design-->
-
-        <section id="logistics">
-          <h2><span class="fa fa-edit"></span> Logistics</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc.
-            Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus,
-            tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <button type="button" class="btn btn-primary">Learn More</button>
-        </section><!--end of #logistics-->
-
-        <section id="social">
-          <h2><span class="fa fa-edit"></span> Social</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.
-          </p>
-          <p>Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus,
-            tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
-            sit amet nibh. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <button type="button" class="btn btn-primary">Learn More</button>
-        </section><!--end of #social-->
-
-        <section id="management">
-          <h2><span class="fa fa-edit"></span> Management</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
-            viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.
-            Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet
-            adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.
-          </p>
-          <button type="button" class="btn btn-primary">Learn More</button>
-        </section><!--end of #management-->
-
-        <section id="chemistry">
-          <h2><span class="fa fa-edit"></span> Chemistry</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc.
-            Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus,
-            tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <button type="button" class="btn btn-primary">Learn More</button>
-        </section><!--end of #chemistry-->
-
-        <section id="mobile-development">
-          <h2><span class="fa fa-edit"></span> Mobile Development</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc. Etiam ultricies nisi vel augue.
-            Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus,
-            tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.
-          </p>
-
-          <section id="android">
-            <h3>Android Development</h3>
-            <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc, blandit vel,
-            luctus pulvinar, hendrerit id, lorem.
-            </p>
-            <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-              Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc, blandit vel,
-              luctus pulvinar, hendrerit id, lorem.
-            </p>
-            <button type="button" class="btn btn-primary">Learn More</button>
-          </section><!--end of #android-->
-
-          <section id="iOS">
-            <h3>iOS Development</h3>
-            <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-              Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc, blandit vel,
-              luctus pulvinar, hendrerit id, lorem.
-            </p>
-            <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-              Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc, blandit vel,
-              luctus pulvinar, hendrerit id, lorem.
-            </p>
-            <button type="button" class="btn btn-primary">Learn More</button>
-          </section><!--end of #iOS-->
-        </section><!--end of #mobile-development-->
-        
-        <section id="mathematics">
-          <h2><span class="fa fa-edit"></span> Mathematics</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc. Etiam ultricies nisi vel augue.
-            Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus,
-            tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-            quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-          </p>
-          <button type="button" class="btn btn-primary">Learn More</button>
-        </section><!--end of #mathematics-->
+      <hr>
+    <section id="tomato-rotten">
+    <div class="row">
+      <div class="col-xs-12">
+       <div class="fb-comments" data-width="100%" data-numposts="5"></div>
       </div>
+    </div>
+  </section><!--end of #marketing-->
+
+
+  </div>
+
+  <div class="col-lg-2 col-md-2">
+
+  </div>
 	</div>
 
 </div>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.7&appId=474327099373950";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>

@@ -15,6 +15,10 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use common\components\TmdbHelper;
+use Tmdb\ApiToken;
+use Tmdb\Client;
+use Tmdb\Repository\ConfigurationRepository;
+use Tmdb\Repository\MovieRepository;
 
 /**
  * Movie controller
@@ -32,10 +36,72 @@ class MovieController extends Controller
             $movie = TmdbHelper::createNewMovie($id);
         }
 
-        // echo '<pre>', print_r($movie->image[0]->path);
+        if(empty($movie->imdb->id)){
+            $imdbService = new \common\components\Imdb();
+            $imdb = new \common\models\Imdb();
+            $mArr = $imdbService->getMovieInfoById($movie->imdb_id);
+            $imdb->id = $movie->imdb_id;
+            $imdb->rating = $mArr['rating_value'];
+            $imdb->max_rating = 10;
+            $imdb->num_review = intval(str_replace(',', '', $mArr['rating_count']));
+            $imdb->save();
+            $movie = Movie::findOne(['tmdb_id' => $id]);
+        }else if((time() - $movie->imdb->updated_at) > (3600*8)){
+            $imdbService = new \common\components\Imdb();
+            $mArr = $imdbService->getMovieInfoById($movie->imdb_id);
+            $imdb = \common\models\Imdb::findOne($movie->imdb_id);
+            $imdb->rating = $mArr['rating_value'];
+            $imdb->num_review = intval(str_replace(',', '', $mArr['rating_count']));
+            $imdb->save();
+            $movie = Movie::findOne(['tmdb_id' => $id]);
+        }
+
+        if(empty($movie->rt->id)){
+            $rtService = new \common\components\Rt();
+            $mArr = $rtService->getMovieInfo($movie->title);
+
+            $rt = new \common\models\Rt();
+            $rt->id = $movie->imdb_id;
+
+            $rt->url = $mArr['url'];
+            $rt->critic_meter_tomato = $mArr['critic_meter_tomato'];
+            $rt->critic_score = $mArr['critic_score'];
+            $rt->average_rating = $mArr['average_rating'];
+            $rt->reviews_counted = $mArr['reviews_counted'];
+            $rt->fresh = $mArr['fresh'];
+            $rt->rotten = $mArr['rotten'];
+            $rt->user_meter_tomato = $mArr['user_meter_tomato'];
+            $rt->user_score = $mArr['user_score'];
+            $rt->user_average_rating = $mArr['user_average_rating'];
+            $rt->user_reviews_counted = intval(str_replace(',', '', $mArr['user_reviews_counted']));
+
+            $rt->save();
+            $movie = Movie::findOne(['tmdb_id' => $id]);
+        }else if((time() - $movie->rt->updated_at) > (3600*12)){
+            $rtService = new \common\components\Rt();
+            $mArr = $rtService->getMovieInfo($movie->title);
+            $rt = \common\models\Rt::findOne($movie->imdb_id);
+
+            $rt->critic_meter_tomato = $mArr['critic_meter_tomato'];
+            $rt->critic_score = $mArr['critic_score'];
+            $rt->average_rating = $mArr['average_rating'];
+            $rt->reviews_counted = $mArr['reviews_counted'];
+            $rt->fresh = $mArr['fresh'];
+            $rt->rotten = $mArr['rotten'];
+            $rt->user_meter_tomato = $mArr['user_meter_tomato'];
+            $rt->user_score = $mArr['user_score'];
+            $rt->user_average_rating = $mArr['user_average_rating'];
+            $rt->user_reviews_counted = intval(str_replace(',', '', $mArr['user_reviews_counted']));
+
+            $rt->save();
+            $movie = Movie::findOne(['tmdb_id' => $id]);
+        }
+
+        // echo '<pre>', print_r($rt->getErrors());
         // die;
+
         return $this->render('index', [
-            'movie'=>$movie,
+            'movie' => $movie,
         ]);
     }
 

@@ -30,7 +30,7 @@ NavSearchAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Moviesyum',
+        'brandLabel' => 'Filmason',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
