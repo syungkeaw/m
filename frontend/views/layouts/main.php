@@ -57,7 +57,10 @@ NavSearchAsset::register($this);
         // ['label' => 'About', 'url' => ['/site/about']],
         // ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
-    
+
+    $menuItems[] = ['label' => 'Story', 'url' => ['/story/']];
+    $menuItems[] = ['label' => 'Create Story', 'url' => ['/story/create']];
+
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/registration/register']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/security/login']];

@@ -11,7 +11,7 @@ use Yii;
  * @property integer $movie_id
  * @property integer $people_id
  * @property string $job
- * @property string $charecter
+ * @property string $character
  */
 class MoviePeople extends \yii\db\ActiveRecord
 {
@@ -31,7 +31,7 @@ class MoviePeople extends \yii\db\ActiveRecord
         return [
             [['movie_id', 'people_id'], 'required'],
             [['movie_id', 'people_id'], 'integer'],
-            [['job', 'charecter'], 'string', 'max' => 255]
+            [['job', 'character'], 'string', 'max' => 255]
         ];
     }
 
@@ -45,7 +45,7 @@ class MoviePeople extends \yii\db\ActiveRecord
             'movie_id' => 'Movie ID',
             'people_id' => 'People ID',
             'job' => 'Job',
-            'charecter' => 'Charecter',
+            'character' => 'Character',
         ];
     }
 

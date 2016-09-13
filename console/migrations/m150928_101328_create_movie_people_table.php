@@ -12,7 +12,7 @@ class m150928_101328_create_movie_people_table extends Migration
             'movie_id' => $this->integer()->notNull(),
             'people_id' => $this->integer()->notNull(),
             'job' => $this->string(),
-            'charecter' => $this->string(),
+            'character' => $this->string(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci');
     }
 
